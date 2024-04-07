@@ -1,7 +1,6 @@
-package args
+package arg_parse
 
 import (
-	action "cli/args/arg_types"
 	"fmt"
 	"strconv"
 	"strings"
@@ -21,7 +20,6 @@ type Arg struct {
 	Name         string
 	Choices      []any
 	Required     bool
-	Action       action.Action
 	Help         string
 	// ArgsCount    uint
 	StoreTrue bool

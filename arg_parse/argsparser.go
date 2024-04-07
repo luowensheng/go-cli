@@ -1,4 +1,4 @@
-package args
+package arg_parse
 
 import (
 	"fmt"

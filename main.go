@@ -1,9 +1,10 @@
 package main
 
 import (
-	"cli/args"
 	"fmt"
 	"log"
+
+	args "github.com/luowensheng/cli/arg_parse"
 )
 
 func main() {
@@ -16,13 +17,12 @@ func main() {
 		Name:    "operation",
 		Help:    "Operation to perform",
 		Choices: []any{"add", "subtract", "multiply", "divide"},
-		
 	}).Value
 
 	number1, err := parser.GetArgument(args.Arg{
-		Name:      "num1",
-		Required:  true,
-		Help:      "First number",
+		Name:     "num1",
+		Required: true,
+		Help:     "First number",
 	}).IntoInt()
 
 	if err != nil {
@@ -30,9 +30,9 @@ func main() {
 	}
 
 	number2, err := parser.GetArgument(args.Arg{
-		Name:      "num2",
-		Required:  true,
-		Help: "Second number",
+		Name:     "num2",
+		Required: true,
+		Help:     "Second number",
 	}).IntoInt()
 
 	if err != nil {
