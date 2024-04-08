@@ -50,6 +50,11 @@ func (parser *ArgParser) GetArgument(arg Arg) *ArgValue {
 
 	if arg.isPositional() {
 
+		index := parser.currentIndex
+		if index >= len(parser.args){
+			value.error = fmt.Errorf("not enough arguments passed")
+			return value
+		}
 		value.Value = parser.args[parser.currentIndex]
 		parser.currentIndex += 1
 
@@ -65,7 +70,12 @@ func (parser *ArgParser) GetArgument(arg Arg) *ArgValue {
 			value.Value = true
 
 		} else {
-			value.Value = parser.args[parser.indexMapping[arg.Name]+1]
+			index := parser.indexMapping[arg.Name]+1
+			if index >= len(parser.args){
+				value.error = fmt.Errorf("not enough arguments passed")
+				return value
+			}
+			value.Value = parser.args[index]
 		}
 
 	} else if parser.indexMapping[arg.ShortName] != 0 {
@@ -74,7 +84,13 @@ func (parser *ArgParser) GetArgument(arg Arg) *ArgValue {
 			value.Value = true
 
 		} else {
-			value.Value = parser.args[parser.indexMapping[arg.ShortName]+1]
+			// value.Value = parser.args[parser.indexMapping[arg.ShortName]+1]
+			index := parser.indexMapping[arg.ShortName]+1
+			if index >= len(parser.args){
+				value.error = fmt.Errorf("not enough arguments passed")
+				return value
+			}
+			value.Value = parser.args[index]
 		}
 
 	} else if arg.Default != nil {
